@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <link rel="stylesheet" type="text/css" href="/CSS/interstyle.css">
+</head>
+<body>
+    <img src="/CSS/Screenshot 2023-08-11 174031.png" alt="image">
+    <div class="contect-content">
+    <h1>Contact Us</h1>
+    <h2>We're Here to Help</h2>
+    <p>Thank you for considering Neha Electronic for your electronic repair needs. Whether you have a question,
+         need assistance, or want to learn more about our services, our team is ready to assist you.
+         </p>
+    <h2>Get in Touch</h2>
+    <h3>Online Contact Form</h3>
+
+    <p>Have a query or want to schedule a repair? Our online contact form is the perfect way to reach out to us.
+         Provide your details, write comment and you can upload your video in which device facing problem, let us
+          know how we can assist you, and we'll get back to you promptly.
+         </p>
+
+    </div>
+    <div class="form-container">
+        {{#if errorMessage}}
+            <p class="error-message">{{errorMessage}}</p>
+            {{/if}}
+        <form action="/contect" method="Post">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstname" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastname" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="mobile">Mobile No:</label>
+                <input type="tel" id="mobile" name="mobile" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="pincode">Pincode:</label>
+                    <input type="text" id="pincode" name="pincode" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="pincode">Preffered time from*:</label>
+                    <input type="time" id="time" name="ftime" required>
+                </div>
+                <div class="form-group">
+                    <label for="pincode">To:</label>
+                    <input type="time" id="time" name="ttime" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="comment">Write your comment:</label>
+                <textarea id="comment" name="comment" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="video">Video Upload (Max 50MB):</label>
+                <input type="file"  id="video" name="video" accept="video/*" required>
+            </div>
+            <div class="form-submit">
+            <button type="submit" class="submit-button">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="contect-content">
+    <h1>Your Feedback Matters</h1>
+    
+    <p>We value your feedback and suggestions. If you've used our services or have insights on how we can improve, we're all ears.
+         Your input helps us enhance our offerings and better serve our valued customers.
+         </p>
+    
+
+    <p>Thank you for considering [Your Company Name] as your electronic repair partner. We look forward to providing you with top-tier
+         service and solutions. Get in touch with us today!
+     </p>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="/CSS/style.css">
+    
+</head>
+<body>
+    {{>header}}
+     <div class="navbar">
+        <h1 class="navbar-title">To work with us to solve our customers' problems</h1>
+    </div>
+
+        <div class="form-container register-form">
+            <h2>Registration to become our service partner</h2>
+             {{#if errorMessage}}
+            <p class="error-message">{{errorMessage}}</p>
+            {{/if}}
+            <form action="/register" method="Post">
+                <div>
+                <input type="text" placeholder="First Name" name="firstname" required>
+                <input type="text" placeholder="Last Name" name="lastname" required>
+                </div>
+                <input type="tel" placeholder="Mobile No." name="mobile" required>
+                <p>Please Write services that you are able to provide to our customers.</p>
+                   
+                   <input type="text" name="service" placeholder="service"  required>
+                <p>Once you have checked the services that you are able to provide.</p>
+                <input type="text"  placeholder="address" name="address">
+                <div>
+                    <input type="text" placeholder="city" id="city" name="city" required>
+                
+                    <input type="text" placeholder="pincode" id="pincode" name="pincode" required>
+                </div>
+            
+                <input type="email" name="email" placeholder="Email" required autocomplete="off">
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="confirmpassword" placeholder="Confirm Password" required>
+                {{!-- <label>
+                    <input type="checkbox" name="terms" required>
+                    I agree to the terms and conditions
+                </label> --}}
+                <button type="submit" >Register</button>
+            </form>
+        </div>
+
+         
+    
+</body>
+</html>

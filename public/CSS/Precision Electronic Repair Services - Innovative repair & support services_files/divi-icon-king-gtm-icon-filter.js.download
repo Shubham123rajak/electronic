@@ -1,0 +1,159 @@
+(function( $ ) {
+
+	var filter__icon_list_container, filter__icon_list;
+
+	var delay = ( function() {
+  		var timer = 0;
+  		return function( callback, ms ){
+    		clearTimeout ( timer );
+    		timer = setTimeout( callback, ms );
+  		};
+	})();
+
+	function findIconListContainer(){
+    // WP Customizer.
+	  if( $('body.wp-customizer').length == 1 ) {
+		  return '.customize-control-icon_picker';
+	  // VB.
+	  } else if ( $('body.et-fb').length == 1  ) {
+		   return '.et-fb-option-container';
+	  // New Backend Builder.
+	  } else if ( $('body.et-db').length == 1  ) {
+		  return '.et-fb-option-container';
+	  // Classic Backend Builder.
+	  } else {
+      return '.et-pb-option--select_icon';
+	  }
+	}
+
+	function findIconList(){
+		return $('div#et-fb-app').length == 1 ? 'ul.et-fb-font-icon-list li' : 'ul.et_font_icon li';
+	}
+	
+	function reset_search( el ) {
+		el.closest( '.dikg_icon_filter' ).find( '.dikg_icon_filter__input' ).val('');
+	}
+	
+	function clear_active_control() {
+		$( '.dikg_icon_filter__control_option--active' ).removeClass( 'dikg_icon_filter__control_option--active' );
+	}
+		
+	$( document ).on( 'keyup', '.dikg_icon_filter__input', function() {
+		
+		var $that = $(this);
+			
+		delay( function() {
+
+			value = $that.val().toLowerCase();
+
+			$iconList = $that.closest( filter__icon_list_container ).find( filter__icon_list );
+			
+			clear_active_control();
+
+			if( !value ){
+				$iconList.show();
+				return;
+			}
+			
+			var value = $.trim( value );
+
+			$iconList.hide().filter('li[data-terms*="'+value+'"]').show();
+					
+    }, 500 );
+	});
+		
+	// Filter by Family
+	$( document ).on( 'click', '.dikg_icon_filter__control_family', function() {
+		
+		clear_active_control();
+		
+		var $this = $( this ).addClass( 'dikg_icon_filter__control_option--active' );
+		
+		reset_search( $this );
+		
+		var value = $this.attr('data-value');
+		$iconList = $this.closest( filter__icon_list_container ).find( filter__icon_list );
+		
+		$iconList.show().filter( function() {
+      return !~$(this).attr('data-family').indexOf( value );
+    }).hide();
+	});
+	
+	// Filter by Icon Style
+	$( document ).on( 'click', '.dikg_icon_filter__control_style', function() {
+		
+		clear_active_control();
+		
+		var $this = $( this ).addClass( 'dikg_icon_filter__control_option--active' );
+		
+		reset_search( $this );
+		
+		var value = $this.attr('data-value');
+		$iconList = $this.closest( filter__icon_list_container ).find( filter__icon_list );
+		
+		$iconList.show().filter( function() {
+      var text = $(this).attr('data-style');
+      return !~text.indexOf( value );
+    }).hide();	});
+		
+	$(document).on( 'click', '.dikg_icon_filter--closed', function() {
+		
+		clear_active_control();
+	
+		var $parent_container = $( this );
+		filter__icon_list_container = findIconListContainer();
+		filter__icon_list           = findIconList();
+		
+		$parent_container
+		.removeClass( 'dikg_icon_filter--closed' )
+		.addClass( 'dikg_icon_filter--open' )
+		.prepend( '<input type="text" class="dikg_icon_filter__input" value="" placeholder="Whatcha looking for?" />' );
+		
+		$parent_container.find( '.dikg_icon_filter__btn' )
+		.removeClass( 'dikg_icon_filter--visible' )
+		.addClass( 'dikg_icon_filter--hidden' );
+		
+		$parent_container.find( '.dikg_icon_filter__controls' )
+		.removeClass( 'dikg_icon_filter--hidden' )
+		.addClass( 'dikg_icon_filter--visible' );
+		
+		$parent_container.find( '.dikg_icon_filter__input' ).focus();
+	});
+	
+	// Reset filter input
+	$(document).on( 'click', '.dikg_icon_filter__all', function() {
+		
+		clear_active_control();
+		
+		var $this = $( this );
+		reset_search( $this );
+		
+		$this.closest( filter__icon_list_container ).find( filter__icon_list ).show();
+	});
+	
+	// Close filtering
+	$(document).on( 'click', '.dikg_icon_filter__close', function() {
+		
+		clear_active_control();
+				
+		var $parent_container = $( this ).closest( '.dikg_icon_filter' );
+				
+		$parent_container.find( '.dikg_icon_filter__btn' )
+		.removeClass( 'dikg_icon_filter--hidden' )
+		.addClass( 'dikg_icon_filter--visible' );
+		
+		$parent_container.find( '.dikg_icon_filter__controls' )
+		.removeClass( 'dikg_icon_filter--visible' )
+		.addClass( 'dikg_icon_filter--hidden' );
+		
+		$parent_container.find( '.dikg_icon_filter__input' ).val('');
+		$parent_container.find( '.dikg_icon_filter__input' ).remove();
+		
+		$parent_container
+		.removeClass( 'dikg_icon_filter--open' )
+		.addClass( 'dikg_icon_filter--closed' );
+		
+		$(this).closest( filter__icon_list_container ).find( filter__icon_list ).show();
+	});
+	
+})(jQuery);
